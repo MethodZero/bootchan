@@ -19,5 +19,5 @@ from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main/', views.index),
+    path('boards/<str:board>', views.boards),
 ]
