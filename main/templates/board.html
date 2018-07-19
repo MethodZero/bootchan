@@ -35,13 +35,13 @@
 
     </div>
 -->
-<h1 style="color:#67acb7">alt.random</h1>
+<h1 style="color:#67acb7">/{{ board }}/ - {{ boardtopic }}</h1>
     {% for post in posts %}
 
     </div>
     <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
       <div class="metatext text-light">
-      <p style="padding-top: 15px;">{{post.posttitle}}, <span style="color: #67acb7">{{post.postauthor}}</span>, {{post.posttime}} No. {{ post.postid }}</p>
+      <p style="padding-top: 15px;">{{post.posttitle}}, <span style="color: #67acb7">{{post.postauthor}}</span>, {{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}">No. {{ post.postid }}</p></a>
       </div>
       <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
         <div class="col-sm-3">

@@ -9,4 +9,9 @@ class Post(models.Model):
     postauthor = models.CharField(max_length=16, default="Anonymous")
     posttitle = models.CharField(max_length=32, blank=True)
     posttime = models.DateField(default=datetime.date.today, blank=True)
-    postboard = models.CharField(default="alt.random", max_length=32)
+    postboard = models.CharField(default="r", max_length=32)
+
+class Board(models.Model):
+    boardtopic = models.CharField(max_length=32)
+    boardposts = models.PositiveIntegerField()
+    boardname = models.CharField(max_length=8)

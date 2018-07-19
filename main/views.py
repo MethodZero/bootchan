@@ -4,13 +4,17 @@ from main import models
 import random
 # Create your views here.
 
-def index(request):
+def boards(request, board="r"):
+    posts = models.Post.objects.filter(postboard=board).order_by("-postid")[:5]
+    context = {"posts":posts, "board":board, "boardtopic":models.Board.objects.get(boardname=board).boardtopic}
+    models.Board.objects.get(boardname=board).boardposts = len(models.Board.objects.filter(boardname=board))
+    models.Board.objects.get(boardname=board).save()
+    # userpost = models.Post()
+    # userpost.postcontent = request.POST.get("newpost", "")
+    # userpost.postid = random.randrange(0,100,1)
+    # if userpost.postcontent:
+    #     userpost.save()
+    return render(request, "board.html", context)
 
-    posts = models.Post.objects.order_by("-postid")[:5]
-    context = {"posts":posts}
-    userpost = models.Post()
-    userpost.postcontent = request.POST.get("newpost", "")
-    userpost.postid = random.randrange(0,100,1)
-    if userpost.postcontent:
-        userpost.save()
-    return render(request, "index.html", context)
+def reply(request, board="r", postid="0"):
+    pass
