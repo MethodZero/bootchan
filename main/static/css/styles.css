@@ -1,0 +1,43 @@
+.post-content {
+
+  border: solid 2px grey;
+  width: 90%;
+  float:right;
+  height: 100%;
+}
+
+.post {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  vertical-align: bottom;
+  height: 15vh;
+  border: 2px solid black;
+  max-height: 30vh;
+
+}
+.post-text {
+  margin: auto;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.post-img {
+  float: left;
+  margin: none;
+  max-height: 10%;
+  height: auto;
+
+  border: 2px solid white;
+}
+
+.post-id {
+  float: left;
+  margin: auto;
+  display: inline-block;
+
+}
+
+.post-border {
+  width: 100%
+}
