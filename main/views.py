@@ -5,6 +5,10 @@ import random
 import datetime
 # Create your views here.
 
+def index(request):
+    indexcontext = {}
+    return render(request, "index.html", indexcontext)
+
 def boards(request, board="r"):
     posts = models.Post.objects.filter(postboard=board).order_by("-postid")[:5]
     replies = []

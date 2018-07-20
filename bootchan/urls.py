@@ -18,6 +18,7 @@ from django.urls import path
 from main import views
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('boards/<str:board>/', views.boards),
     path('boards/<str:board>/reply/<int:postid>/', views.reply)
