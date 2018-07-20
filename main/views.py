@@ -13,8 +13,11 @@ def boards(request, board="r"):
     posts = models.Post.objects.filter(postboard=board).order_by("-postid")[:5]
     replies = []
     for o in posts:
-        replies.append(models.Post.objects.filter(postparent=o.postid))
+        temp = tuple(models.Post.objects.filter(postparent=o.postid))
+        for x in temp:
+            replies.append(x)
     boardscontext = {"posts":posts, "board":board, "boardtopic":models.Board.objects.get(boardname=board).boardtopic, "replies":replies}
+
     models.Board.objects.get(boardname=board).boardposts = len(models.Board.objects.filter(boardname=board))
     models.Board.objects.get(boardname=board).save()
     # userpost = models.Post()
@@ -22,6 +25,15 @@ def boards(request, board="r"):
     # userpost.postid = random.randrange(0,100,1)
     # if userpost.postcontent:
     #     userpost.save()
+    if "submit-post" in request.POST:
+        userpost = models.Post()
+        userpost.postid = int(models.Post.objects.filter().order_by("-postid")[0].postid + 1)
+        userpost.postimg = request.POST.get("userimage", "")
+        userpost.postcontent = request.POST.get("usertext", "")
+        userpost.postauthor = request.POST.get("username", "")
+        userpost.postboard = board
+        userpost.postparent = 0
+        userpost.save()
     return render(request, "board.html", boardscontext)
 
 def reply(request, board="r", postid="0"):

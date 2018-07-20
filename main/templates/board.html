@@ -13,107 +13,137 @@
   <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#1b1b1e">
     <a href="/" class="navbar-brand">Bootchan</a>
     <ul class="navbar-nav">
-      <li class="nav-item"><a href="#" class="nav-link">Boards</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Boards</a></li>
     </ul>
   </nav>
   <br>
 
   <div class="container">
-<!--
+    <h1 style="color:#67acb7; padding-bottom: 15px">/{{ board }}/ - {{ boardtopic }}</h1>
     <div class="jumbotron text-light" style="padding:20px; background-color:#1b1b1e">
-      <h4>imageboard testing</h4>
-      <form class="" action="" method="post">
+      <form class="" action="" method="post">{% csrf_token %}
         <div class="row" style="">
-          <div class="col-lg-6">
-            <input type="text" name="newpost" value="" class="form-control bg-dark text-light btn-outline-dark" placeholder="your are big rarted">
+
+          <div class="col-lg-4">
+            <input type="text" name="username" value="" class="form-control bg-dark text-light btn-outline-dark" placeholder="Name">
           </div>
           <div class="col-lg-6">
-            <input type="submit" name="submit" class="form-control btn-dark" value="Post">
+            <input type="text" name="userimage" value="" class="form-control bg-dark text-light btn-outline-dark" placeholder="File URL">
+          </div>
+          <div class="col-lg-2">
+            <input type="submit" name="submit-post" class="form-control btn-dark" value="Post">
+          </div>
+        </div>
+        <div class="row" style="margin-top:1.25rem">
+          <div class="col-lg-12">
+            <textarea name="usertext" value="" class="form-control bg-dark text-light btn-outline-dark" placeholder="Post Content"></textarea>
           </div>
         </div>
 
       </form>
 
     </div>
--->
-<h1 style="color:#67acb7">/{{ board }}/ - {{ boardtopic }}</h1>
-</div>
+  </div>
 
-    {% for post in posts %}
-      {% if not post.postparent %}
-        {% if post.postimg %}
-      <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
-        <div class="metatext text-light">
-        <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
-          <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
-        </div>
-        <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
-          <div class="col-sm-3">
-            <img class="img-fluid" src="{{ post.postimg }}" alt="">
-          </div>
-          <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-            <p style="margin-top: 10px"> {{ post.postcontent }} </p>
-          </div>
-        </div>
+  {% for post in posts %}
+    {% if not post.postparent %}
+      {% if post.postimg %}
+  <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
+    <div class="metatext text-light">
+      <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
+        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/" data-target="#quickreply" data-toggle="collapse">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
+    </div>
+    <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
+      <div class="col-sm-3">
+        <img class="img-fluid" src="{{ post.postimg }}" alt="">
       </div>
-      <br>
-      {% else %}
-      <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
-        <div class="metatext text-light">
-        <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
-          <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
-        </div>
-        <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
-          <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-            <p style="margin-top: 10px"> {{ post.postcontent }} </p>
-          </div>
-        </div>
+      <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+        <p style="margin-top: 10px"> {{ post.postcontent }} </p>
       </div>
-      <br>
-      {% endif %}
-      {% endif %}
-      {% for reply in replies %}
-        {% if reply.postparent == post.postid %}
-          {% if reply.postimg %}
-          <div class="container" style="background-color:#1b1b1e;  margin-top: 15px">
-          <div class="metatext text-light">
-          <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-            <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
-          </div>
-          <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
-            <div class="col-sm-3">
-              <img class="img-fluid" src="{{ reply.postimg }}" alt="">
+    </div>
+  </div>
+  <br>
+    {% else %}
+  <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
+    <div class="metatext text-light">
+      <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
+        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/" data-target="#quickreply" data-toggle="collapse">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
+    </div>
+    <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
+      <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+        <p style="margin-top: 10px"> {{ post.postcontent }} </p>
+      </div>
+    </div>
+  </div>
+  <br>
+    {% endif %}
+  {% endif %}
+
+    {% for reply in replies %}
+      {% if reply.postparent == post.postid %}
+        {% if reply.postimg %}
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-11" style="background-color:#1b1b1e;  margin-top: 15px">
+            <div class="metatext text-light">
+              <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
+                <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
             </div>
-            <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-              <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+            <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
+              <div class="col-sm-3">
+                <img class="img-fluid" src="{{ reply.postimg }}" alt="">
+              </div>
+              <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+                <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+              </div>
             </div>
           </div>
-          </div>
-          <br>
-          {% else %}
-          <div class="container" style="background-color:#1b1b1e; ">
-          <div class="metatext text-light">
-          <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-            <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
-          </div>
-          <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
-            <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-              <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+        </div>
+        <br>
+        {% else %}
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11" style="background-color:#1b1b1e; ">
+              <div class="metatext text-light">
+                <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
+                  <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+              </div>
+              <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
+                <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+                  <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
-          <br>
-          {% endif %}
+        </div>
+
+        <br>
         {% endif %}
-      {% endfor %}
+      {% endif %}
     {% endfor %}
+  {% endfor %}
+
+    <div id="quickreply" class="container collapse" style="">
+      <div class="row" style="">
+        <div class="col-sm-8" style="">
+
+        </div>
+        <div class="col-sm-4" style="background-color: #1b1b1e;border-left: 0.5rem solid #67acb7; position: sticky;">
+          <p class="text-light" style="padding-top: 15px;">
+            Quick Reply
+          </p>
+          <form class="" action="#" method="post">
+            <input type="text" class="form-control bg-dark text-light btn-outline-dark" name="quickreplyname" value="" placeholder="Name">
+          </form>
+        </div>
+      </div>
+    </div>
 
 
-  </div>
-
-
-
-  </div>
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
