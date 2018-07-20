@@ -39,35 +39,72 @@
 </div>
 
     {% for post in posts %}
-      {% if post.postimg %}
-    <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
-      <div class="metatext text-light">
-      <p style="padding-top: 15px;">{{post.posttitle}}, <span style="color: #67acb7">{{post.postauthor}}</span>, {{post.posttime}} <a style="color:#67acb7" title="Reply" href="{{ post.postboard }}/reply/{{ post.postid }}">No. {{ post.postid }}</p></a>
-      </div>
-      <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
-        <div class="col-sm-3">
-          <img class="img-fluid" src="{{ post.postimg }}" alt="">
+      {% if not post.postparent %}
+        {% if post.postimg %}
+      <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
+        <div class="metatext text-light">
+        <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
+          <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }}</p></a>
         </div>
-        <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-          <p style="margin-top: 10px"> {{ post.postcontent }} </p>
-        </div>
-      </div>
-    </div>
-    <br>
-    {% else %}
-    <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
-      <div class="metatext text-light">
-      <p style="padding-top: 15px;">{{post.posttitle}}, <span style="color: #67acb7">{{post.postauthor}}</span>, {{post.posttime}} <a style="color:#67acb7" title="Reply" href="{{ post.postboard }}/reply/{{ post.postid }}">No. {{ post.postid }}</p></a>
-      </div>
-      <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
-        <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
-          <p style="margin-top: 10px"> {{ post.postcontent }} </p>
+        <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
+          <div class="col-sm-3">
+            <img class="img-fluid" src="{{ post.postimg }}" alt="">
+          </div>
+          <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+            <p style="margin-top: 10px"> {{ post.postcontent }} </p>
+          </div>
         </div>
       </div>
-    </div>
-    <br>
-    {% endif %}
-
+      <br>
+      {% else %}
+      <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
+        <div class="metatext text-light">
+        <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
+          <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }}</p></a>
+        </div>
+        <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
+          <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+            <p style="margin-top: 10px"> {{ post.postcontent }} </p>
+          </div>
+        </div>
+      </div>
+      <br>
+      {% endif %}
+      {% endif %}
+      {% for reply in replies %}
+        {% if reply.postparent == post.postid %}
+          {% if reply.postimg %}
+          <div class="container" style="background-color:#1b1b1e;  margin-top: 15px">
+          <div class="metatext text-light">
+          <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
+            <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+          </div>
+          <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
+            <div class="col-sm-3">
+              <img class="img-fluid" src="{{ reply.postimg }}" alt="">
+            </div>
+            <div class="col-sm-9 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+              <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+            </div>
+          </div>
+          </div>
+          <br>
+          {% else %}
+          <div class="container" style="background-color:#1b1b1e; ">
+          <div class="metatext text-light">
+          <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
+            <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+          </div>
+          <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
+            <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
+              <p style="margin-top: 10px"> {{ reply.postcontent }} </p>
+            </div>
+          </div>
+          </div>
+          <br>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     {% endfor %}
 
 
