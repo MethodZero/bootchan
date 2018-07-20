@@ -82,7 +82,7 @@
     <div class="container" style="background-color:#1b1b1e;  margin-top: 15px">
     <div class="metatext text-light">
     <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-      <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+      <span style="color: #67acb7">{% if reply.postauthor != "" %}{{reply.postauthor}}{%else%}Anonymous{%endif%}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
     </div>
     <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
       <div class="col-sm-3">
@@ -97,8 +97,8 @@
     {% else %}
     <div class="container" style="background-color:#1b1b1e; ">
     <div class="metatext text-light">
-    <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-      <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+    <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}
+      <span style="color: #67acb7">{% if reply.postauthor != "" %}{{reply.postauthor}}{%else%}Anonymous{%endif%}</span>, {{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
     </div>
     <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
       <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
