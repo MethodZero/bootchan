@@ -10,7 +10,7 @@ def index(request):
     return render(request, "index.html", indexcontext)
 
 def boards(request, board="r"):
-    posts = models.Post.objects.filter(postboard=board).order_by("-postid")[:5]
+    posts = models.Post.objects.filter(postboard=board).order_by("-postid")[:100]
     replies = []
     for o in posts:
         temp = tuple(models.Post.objects.filter(postparent=o.postid))
@@ -18,7 +18,7 @@ def boards(request, board="r"):
             replies.append(x)
     boardscontext = {"posts":posts, "board":board, "boardtopic":models.Board.objects.get(boardname=board).boardtopic, "replies":replies}
 
-    models.Board.objects.get(boardname=board).boardposts = len(models.Board.objects.filter(boardname=board))
+    models.Board.objects.get(boardname=board).boardposts = len(models.Post.objects.filter(postboard=board))
     models.Board.objects.get(boardname=board).save()
     # userpost = models.Post()
     # userpost.postcontent = request.POST.get("newpost", "")
