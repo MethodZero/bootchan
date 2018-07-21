@@ -48,10 +48,10 @@
   {% for post in posts %}
     {% if not post.postparent %}
       {% if post.postimg %}
-  <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
+  <div class="container" id="body{{post.postid}}" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7; margin-top: 15px">
     <div class="metatext text-light">
       <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
-        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/" data-target="#quickreply" data-toggle="collapse">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
+        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }}</a> <i class="fas fa-reply" onclick="quickReply('body{{post.postid}}')"></i></p>
     </div>
     <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
       <div class="col-sm-3">
@@ -64,10 +64,10 @@
   </div>
   <br>
     {% else %}
-  <div class="container" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
+  <div class="container" id="body{{post.postid}}" style="background-color:#1b1b1e; border-left: 0.5rem solid #67acb7;">
     <div class="metatext text-light">
       <p style="padding-top: 15px;">{% if post.posttitle %}{{ post.posttitle }}, {% endif %}{% if post.postauthor %}
-        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/" data-target="#quickreply" data-toggle="collapse">No. {{ post.postid }} <i class="fas fa-reply"></i></p></a>
+        <span style="color: #67acb7">{{post.postauthor}}</span>, {% endif %}{{post.posttime}} <a style="color:#67acb7" title="Reply" href="reply/{{ post.postid }}/">No. {{ post.postid }} </a><i class="fas fa-reply" onclick="quickReply('body{{post.postid}}')"></i></p>
     </div>
     <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
       <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
@@ -84,10 +84,10 @@
         {% if reply.postimg %}
         <div class="row">
           <div class="col-sm-1"></div>
-          <div class="col-sm-11" style="background-color:#1b1b1e;  margin-top: 15px">
+          <div class="col-sm-11" id="body{{reply.postid}}" style="background-color:#1b1b1e;  margin-top: 15px">
             <div class="metatext text-light">
               <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-                <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+                <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }} </a><i class="fas fa-reply" onclick="quickReply('body{{reply.postid}}')"></i></p>
             </div>
             <div class="row text-light" style="padding-bottom: 15px; padding-right: 15px;">
               <div class="col-sm-3">
@@ -104,10 +104,10 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-1"></div>
-            <div class="col-sm-11" style="background-color:#1b1b1e; ">
+            <div class="col-sm-11" id="body{{reply.postid}}" style="background-color:#1b1b1e; ">
               <div class="metatext text-light">
                 <p style="padding-top: 15px;">{% if reply.posttitle %}{{ reply.posttitle }}, {% endif %}{% if reply.postauthor %}
-                  <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }}</p></a>
+                  <span style="color: #67acb7">{{reply.postauthor}}</span>, {% endif %}{{reply.posttime}} <a style="color:#67acb7" title="Reply" href="">No. {{ reply.postid }} </a><i class="fas fa-reply" onclick="quickReply('body{{reply.postid}}')"></i></p>
               </div>
               <div class="row text-light" style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px;">
                 <div class="col-sm-12 flex-container" style="display: flex; align-items: top; background-color: #2f2f32">
@@ -126,15 +126,14 @@
 
     <div id="quickreply" class="container collapse" style="">
       <div class="row" style="">
-        <div class="col-sm-8" style="">
-
-        </div>
-        <div class="col-sm-4" style="background-color: #1b1b1e;border-left: 0.5rem solid #67acb7; position: sticky;">
+        <div class="col-sm-12" style="background-color: #1b1b1e; position: sticky;">
           <p class="text-light" style="padding-top: 15px;">
             Quick Reply
           </p>
           <form class="" action="#" method="post">
-            <input type="text" class="form-control bg-dark text-light btn-outline-dark" name="quickreplyname" value="" placeholder="Name">
+            <input type="text" class="form-control bg-dark text-light btn-outline-dark" name="quickreplyname" value="" placeholder="Name" style="margin-bottom: 15px">
+            <input type="text" class="form-control bg-dark text-light btn-outline-dark" name="userimg" value="" placeholder="File URL" style="margin-bottom: 15px">
+            <textarea name="usertext" class="form-control bg-dark text-light btn-outline-dark" value="" placeholder="Content" style="margin-bottom: 15px"></textarea>
           </form>
         </div>
       </div>
@@ -147,3 +146,17 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function quickReply(object) {
+    if (document.getElementById("quickreply").parentNode.id == object) {
+      if (document.getElementById("quickreply").className.includes("collapse.show")) {
+        document.getElementById("quickreply").className = "container collapse"
+      } else {
+        document.getElementById("quickreply").className = "container collapsecollapse.show"
+      }
+    } else {
+      document.getElementById(object).appendChild(document.getElementById("quickreply"))
+      document.getElementById("quickreply").className = "container collapsecollapse.show"
+    }
+  }
+</script>
