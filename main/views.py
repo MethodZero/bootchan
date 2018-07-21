@@ -6,7 +6,8 @@ import datetime
 # Create your views here.
 
 def index(request):
-    indexcontext = {}
+    boards = models.Board.objects.order_by("boardname")
+    indexcontext = {"boards":boards}
     return render(request, "index.html", indexcontext)
 
 def boards(request, board="r"):
